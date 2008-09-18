@@ -25,16 +25,17 @@ class Transform(object):
         geometry classes are returned.
         """
         geo = getattr(ob, '__geo_interface__', ob)
+        geo = geo.get('geometry', geo)
         constructor = object_hook or geojson.GeoJSON.to_instance
         return constructor(self.transform_geom(geo, inverse))
 
     def transform_coords1(self, coords, inverse=False):
-        x, y = self.proj(*tuple(coords), **dict(inverse=inverse))
+        x, y = self.proj(coords[0], coords[1], **dict(inverse=inverse))
         return (x, y)
 
     def transform_coords2(self, coords, inverse=False):
-        lons, lats = zip(*coords)
-        xs, ys = self.proj(lons, lats, **dict(inverse=inverse))
+        values = zip(*coords)
+        xs, ys = self.proj(values[0], values[1], **dict(inverse=inverse))
         return tuple(zip(xs, ys))
 
     def transform_coords3(self, coords, inverse=False):
