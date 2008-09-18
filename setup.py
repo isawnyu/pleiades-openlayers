@@ -26,7 +26,8 @@ setup(name='pleiades.openlayers',
       zip_safe=False,
       install_requires=[
           'setuptools',
-          # -*- Extra requirements: -*-
+          'geojson',
+          'pyproj'
       ],
       entry_points="""
       # -*- Entry points: -*-
