@@ -1,0 +1,9 @@
+Changelog for pleiades.openlayers
+
+    (name of developer listed in brackets)
+
+pleiades.openlayers - 0.1 Unreleased
+
+    - Initial package structure.
+      [zopeskel]
+
