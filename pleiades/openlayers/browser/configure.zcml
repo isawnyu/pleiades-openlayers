@@ -1,0 +1,28 @@
+<configure
+    xmlns="http://namespaces.zope.org/zope"
+    xmlns:browser="http://namespaces.zope.org/browser"
+    i18n_domain="pleiades.openlayers"
+    >
+
+  <browser:page
+    for="Products.PleiadesEntity.content.interfaces.IPlace"
+    name="ol.js"
+    class=".views.OLSphericalMercatorJS"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="*"
+    name="ol-gmaps-key"
+    class=".views.GoogleAPIKey"
+    permission="zope2.View"
+    />
+
+  <browser:page
+    for="Products.PleiadesEntity.content.interfaces.ILocation"
+    name="ol-edit-location"
+    class=".views.EditGeo"
+    permission="cmf.ModifyPortalContent"
+    />
+
+</configure>

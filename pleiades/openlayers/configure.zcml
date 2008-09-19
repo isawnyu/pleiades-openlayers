@@ -1,30 +1,9 @@
 <configure
     xmlns="http://namespaces.zope.org/zope"
-    xmlns:five="http://namespaces.zope.org/five"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="pleiades.openlayers">
+    i18n_domain="pleiades.openlayers"
+    >
 
-  <include package="zgeo.plone.geographer"/>
-
-  <browser:page
-    for="Products.PleiadesEntity.content.interfaces.IPlace"
-    name="ol.js"
-    class=".browser.OLSphericalMercatorJS"
-    permission="zope2.View"
-    />
-
-  <browser:page
-    for="*"
-    name="ol-gmaps-key"
-    class=".browser.GoogleAPIKey"
-    permission="zope2.View"
-    />
-
-  <browser:page
-    for="Products.PleiadesEntity.content.interfaces.ILocation"
-    name="edit-geo"
-    class=".browser.EditGeo"
-    permission="cmf.ModifyPortalContent"
-    />
+    <include package="zgeo.plone.geographer"/>
+    <include package=".browser"/>
 
 </configure>
