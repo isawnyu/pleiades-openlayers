@@ -1,8 +1,8 @@
 <configure
-    xmlns="http://namespaces.zope.org/zope"
-    xmlns:browser="http://namespaces.zope.org/browser"
-    i18n_domain="pleiades.openlayers"
-    >
+  xmlns="http://namespaces.zope.org/zope"
+  xmlns:browser="http://namespaces.zope.org/browser"
+  i18n_domain="pleiades.openlayers"
+  >
 
   <browser:page
     for="Products.PleiadesEntity.content.interfaces.IPlace"
@@ -23,6 +23,16 @@
     name="ol-edit-location"
     class=".views.EditGeo"
     permission="cmf.ModifyPortalContent"
+    />
+
+  <browser:resource
+    name="marker_gold.png"
+    image="marker_gold.png"
+    />
+
+  <browser:resource
+    name="marker_shadow.png"
+    image="marker_shadow.png"
     />
 
 </configure>
