@@ -27,17 +27,24 @@ class OLSphericalMercatorJS(BrowserPage):
         else:
             shape = asShape(geo)
             centroid = self.transform(shape.centroid)
+        context_url = self.context.absolute_url()
         response.setHeader('Content-Type', 'text/javascript')
         return """
 // Javascript summary of a Pleiades entity
+var url_marker_gold = "%s/++resource++marker_gold.png";
+var url_marker_shadow = "%s/++resource++marker_shadow.png";
 var pleiades_oljs = %s;
-        """ % geojson.dumps(
+        """ % (
+                context_url,
+                context_url,
+                geojson.dumps(
                 dict(
                     uid=self.context.UID(),
                     where=where,
                     centroid=centroid
                     )
                 )
+              )
 
 GMAPS_KEY = os.environ.get('GMAPS_KEY', '')
 
