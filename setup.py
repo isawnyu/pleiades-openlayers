@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-version = '0.1'
+version = '0.2'
 
 setup(name='pleiades.openlayers',
       version=version,
@@ -27,8 +27,9 @@ setup(name='pleiades.openlayers',
       install_requires=[
           'setuptools',
           'geojson',
-          'pyproj'
-      ],
+          'pyproj',
+          'zgeo.plone.geographer'
+          ],
       entry_points="""
       # -*- Entry points: -*-
       """,
