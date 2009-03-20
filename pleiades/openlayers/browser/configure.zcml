@@ -26,16 +26,6 @@
     />
 
   <browser:resource
-    name="marker_gold.png"
-    image="marker_gold.png"
-    />
-
-  <browser:resource
-    name="marker_shadow.png"
-    image="marker_shadow.png"
-    />
-
-  <browser:resource
     name="ol-map.js"
     file="ol-map.js"
     />
