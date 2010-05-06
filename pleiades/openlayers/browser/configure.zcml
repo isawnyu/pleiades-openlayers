@@ -30,21 +30,4 @@
     file="ol-map.js"
     />
 
-  <browser:resource
-    name="location-edit.js"
-    file="ol-location-edit.js"
-    />
-
-  <browser:resource
-    name="OpenLayers.js"
-    file="OpenLayers.js"
-    />
-
-  <browser:page
-    for="Products.PleiadesEntity.content.interfaces.ILocation"
-    name="edit-geometry"
-    class=".edit.EditGeometryForm"
-    permission="cmf.ModifyPortalContent"
-    />
-    
 </configure>
