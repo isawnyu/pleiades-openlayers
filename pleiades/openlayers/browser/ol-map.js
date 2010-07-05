@@ -23,7 +23,7 @@ function onFeatureSelect(feature) {
     var popup = new OpenLayers.Popup.FramedCloud("chicken", 
                              feature.geometry.getBounds().getCenterLonLat(),
                              null,
-                             '<div style="font-size:.8em;height:3em;">Feature: <a href="' + p.link + '">' + p.title + '</a></div>',
+                             '<div style="font-size:.8em;height:3em;"><p>Feature: <a href="' + p.link + '">' + p.title + '</a></p><p>' + p.description + '</p></div>',
                              null, true, onPopupClose);
     feature.popup = popup;
     map.addPopup(popup);
@@ -54,11 +54,41 @@ function initMap() {
 
   var jsonURI = getJSON();
   
+  var template = {
+    fillColor: "${getColor}", 
+    strokeColor: "${getColor}", 
+    fillOpacity: "${getOpacity}",
+    strokeOpacity: 1.0,
+    pointRadius: 5 };
+  
+  var context = {
+    getColor: function(feature) {
+      if (feature.attributes['description'].indexOf('undetermined') > -1) {
+        return "orange";
+      }
+      else {
+        return "blue";
+      }
+    },
+    getOpacity: function(feature) {
+      if (feature.attributes['description'].indexOf('undetermined') > -1) {
+        return 0.2;
+      }
+      else {
+        return 0.8;
+      }
+    }
+  };
+
+  var style = new OpenLayers.Style(template, {context: context});
+  var styleMap = new OpenLayers.StyleMap(style);
+
   vectors = new OpenLayers.Layer.Vector("Place", {
     strategies: [new OpenLayers.Strategy.Fixed()],
     protocol: new OpenLayers.Protocol.HTTP({
       url: jsonURI,
-      format: new OpenLayers.Format.GeoJSON()})
+      format: new OpenLayers.Format.GeoJSON()}),
+    styleMap: styleMap
     });
 
   vectors.events.on({'loadend' : function(e) {
