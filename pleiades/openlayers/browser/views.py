@@ -1,16 +1,17 @@
-import os
-import geojson
-from shapely.geometry import asShape
-from zope.publisher.browser import BrowserPage
-from zope.event import notify
-from zgeo.geographer.geo import ObjectGeoreferencedEvent
-from zgeo.geographer.interfaces import IGeoreferenced
+from collective.geo.geographer.event import ObjectGeoreferencedEvent
+from collective.geo.geographer.interfaces import IGeoreferenced
 from pleiades.openlayers.proj import Transform, PROJ_900913
+from shapely.geometry import asShape
+from zope.event import notify
+from zope.publisher.browser import BrowserPage
+import geojson
+import os
 
 
 class OLSphericalMercatorJS(BrowserPage):
-    """Returns coordinates projected to Spherical Mercator for use with 
-    Google Maps.
+    """Returns coordinates projected to Spherical Mercator.
+
+    For use with Google Maps.
     """
 
     def __init__(self, context, request):
@@ -35,18 +36,17 @@ var url_marker_gold = "%s/++resource++marker_gold.png";
 var url_marker_shadow = "%s/++resource++marker_shadow.png";
 var pleiades_oljs = %s;
         """ % (
-                context_url,
-                context_url,
-                geojson.dumps(
-                dict(
-                    uid=self.context.UID(),
-                    where=where,
-                    centroid=centroid
-                    )
-                )
-              )
+            context_url,
+            context_url,
+            geojson.dumps({
+                'uid': self.context.UID(),
+                'where': where,
+                'centroid': centroid,
+            })
+        )
 
 GMAPS_KEY = os.environ.get('GMAPS_KEY', '')
+
 
 class GoogleAPIKey(BrowserPage):
 
@@ -74,9 +74,9 @@ class EditGeo(BrowserPage):
             raise
             response.setStatus(400)
             return "Input geometry is not acceptable"
-        
+
         # Input is 900913, transform back to lon/lat
-        result = self.transform(obj, inverse=True)        
+        result = self.transform(obj, inverse=True)
         g = IGeoreferenced(self.context)
         g.setGeoInterface(result.type, result.coordinates)
         notify(ObjectGeoreferencedEvent(g))
@@ -86,4 +86,3 @@ class EditGeo(BrowserPage):
         else:
             response.setStatus(200)
             return "Geometry edited successfully"
-
